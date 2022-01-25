@@ -124,9 +124,6 @@ def  main():
     loader_test = DataLoader(test_dataset, batch_size=1, shuffle=False, num_workers=4)
 
     
-    # model.conv1.in_channels = 3*num_of_frames
-    # model.fc.out_features = len(labels_dict)
-    
     model = VideoClassifier()
     model = model.to(device)
     criterion = torch.nn.CrossEntropyLoss()
@@ -137,31 +134,6 @@ def  main():
     model,train_loss,train_acc,val_loss,val_acc = train_val(model, loader_train, loader_val, optimi, criterion, epochs,path_to_model)
     test_loss, test_acc = test_validation(model, criterion, loader_test)
     print(f'Test Metrics\nLoss : {test_loss}\naccuracy : {test_acc}')
-    
-    # model.train()
-    # for frames,target in loader_train:
-    #      bs,n_f,c,h,w = frames.shape
-    #      frames = frames.view(bs,n_f*c,h,w)
-         
-    #      frames = frames.to(device)
-    #      output = model(frames)
-        
-    #      frames,target,output=frames.to('cpu'), target.to('cpu'),output.to('cpu')
-    #      output = output.numpy()
-    #      predictions = np.argmax(output, axis=1)
-    #      acc = accuracy_score(target,predictions)
-    #      print(output)
-    #      print(predictions)
-    #      print(target)
-    #      print(acc)
-    #      break
-    
-    # train_loss, val_loss, train_acc, val_acc, last_e = load_model(path_to_model,model,optimi)
-    # print(train_loss)
-    # print(val_loss)
-    # print(train_acc)
-    # print(val_acc)
-    # print(last_e)
 
 
 if __name__ == "__main__":
